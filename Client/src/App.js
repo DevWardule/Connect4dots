@@ -27,6 +27,7 @@ var player2Coin = 2;//initialize from database
 var player1or2;
 var myUserName;//initialize from database
 var opponentUserName;
+var matchOver = true;
 
 function App() {
 
@@ -80,6 +81,14 @@ function App() {
     return opponentUserName;
   }
 
+  const setMatchOver = (data) => {
+    matchOver = data;
+  }
+
+  const getMatchOver = () => {
+    return matchOver;
+  }
+
   // const [cellCheck, setCellCheck] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1]);
 
   // const setCellCheckArray = (data) => {
@@ -92,14 +101,14 @@ function App() {
 
         <Navbar/>
         <Routes>
-          <Route exact path="/" element={<Body setRoom = {setRoom} getPlayer1or2 = {getPlayer1or2} setPlayer1or2 = {setPlayer1or2} socket = {socket} setMyTurn = {setMyTurn} getMyUserName = {getMyUserName} getOpponentUserName = {getOpponentUserName} setOpponentUserName = {setOpponentUserName}/>}></Route>
+          <Route exact path="/" element={<Body setRoom = {setRoom} getPlayer1or2 = {getPlayer1or2} setPlayer1or2 = {setPlayer1or2} socket = {socket} setMyTurn = {setMyTurn} getMyUserName = {getMyUserName} getOpponentUserName = {getOpponentUserName} setOpponentUserName = {setOpponentUserName} setMatchOver = {setMatchOver}/>}></Route>
           <Route exact path="/easy" element={<Easy/>}></Route>
           <Route exact path="/medium" element={<Moderate/>}></Route>
           <Route exact path="/hard" element={<Hard/>}></Route>
           <Route exact path="/nameColor" element={<Name_color/>}></Route>
           <Route exact path="/aboutUs" element={<AboutUs/>}></Route>
           <Route exact path="/rules" element={<Rules_Regulations/>}></Route>
-          <Route exact path="/game" element={<Game_Play getRoom = {getRoom} socket = {socket} getPlayer1Coin = {getPlayer1Coin} getPlayer2Coin = {getPlayer2Coin} getPlayer1or2 = {getPlayer1or2} getMyTurn = {getMyTurn} setMyTurn = {setMyTurn}/>}></Route>
+          <Route exact path="/game" element={<Game_Play getRoom = {getRoom} socket = {socket} getPlayer1Coin = {getPlayer1Coin} getPlayer2Coin = {getPlayer2Coin} getPlayer1or2 = {getPlayer1or2} getMyTurn = {getMyTurn} setMyTurn = {setMyTurn} getMatchOver = {getMatchOver} setMatchOver = {setMatchOver}/>}></Route>
         </Routes>
       </Router>
     </div>

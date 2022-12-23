@@ -42,7 +42,11 @@ io.on("connection", (socket) => {
         //data contains:
         //1. int move (latest move)
         //2. newCellCheck (latest cellCheck state)
-        //3. room (roomId)
+        //3. winningCells (4 winning cells)
+        //4. room (roomId)
+        if(data.winningCells.length == 4){
+            //matchOver
+        }
         console.log(data);
         socket.to(data.room).emit("receive-move", data);
         const updatedRoom = io.of("/").adapter.rooms.get(data.room)

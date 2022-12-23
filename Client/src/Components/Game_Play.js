@@ -21,6 +21,7 @@ export default function Game_Play(props) {
     const [cellCheck, setCellCheck] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
     let newCellCheck = [...cellCheck];
     const cellCheckSkin = [...cellCheck];
+    let winningCells = [];
 
     cellCheckSkin.forEach((value, index, arr) => {
         if(value === 1){
@@ -36,6 +37,11 @@ export default function Game_Play(props) {
         socket.on("receive-move", (data) => {
             let move = data.move;//Latest move to store on database or to go to previous moves.
             newCellCheck = [...data.newCellCheck];
+            winningCells = data.winningCells;
+            if(winningCells.length == 4){
+                alert("You Lose");
+                props.setMatchOver(true);
+            }
             setCellCheck(newCellCheck);
 
             props.setMyTurn(true);
@@ -43,7 +49,7 @@ export default function Game_Play(props) {
     }, [socket])
     
     const sendMove = (move) => {
-        socket.emit("send-move", {move, newCellCheck, room}, (acknowledgement) => {
+        socket.emit("send-move", {move, newCellCheck, winningCells, room}, (acknowledgement) => {
             props.setMyTurn(false);
             //alert(acknowledgement.status);
         });
@@ -51,6 +57,9 @@ export default function Game_Play(props) {
 
     const handleClick = (move) => {
 
+        if(props.getMatchOver() == true){
+            return;
+        }
         if(props.getMyTurn() === false){
             alert("Opponents turn");
             return;
@@ -75,6 +84,97 @@ export default function Game_Play(props) {
             newCellCheck[cellNum] = pNo;
             setCellCheck(newCellCheck);
             console.log(newCellCheck);
+
+            winningCells = [];
+
+            //Vertical win
+            
+            for(let i = cellNum; 1 <= i && i <= 42 && winningCells.length != 4; i += 7){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            //Horizontal win
+            if(winningCells.length != 4){
+                winningCells = [];
+            }
+
+            for(let i = cellNum; 1 <= i && i <= 42 && winningCells.length != 4; i += 1){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            for(let i = cellNum - 1; 1 <= i && i <= 42 && winningCells.length != 4; i -= 1){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            //Diagonal win (right up)
+            if(winningCells.length != 4){
+                winningCells = [];
+            }
+
+            for(let i = cellNum; 1 <= i && i <= 42 && winningCells.length != 4; i += 6){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            for(let i = cellNum - 6; 1 <= i && i <= 42 && winningCells.length != 4; i -= 6){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            //Diagonal win (right down)
+            if(winningCells.length != 4){
+                winningCells = [];
+            }
+
+            for(let i = cellNum; 1 <= i && i <= 42 && winningCells.length != 4; i += 8){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            for(let i = cellNum - 8; 1 <= i && i <= 42 && winningCells.length != 4; i -= 8){
+                if(newCellCheck[i] == pNo){
+                    winningCells.push(i);
+                }
+                else{
+                    break;
+                }
+            }
+
+            if(winningCells.length == 4){
+                props.setMatchOver(true);
+                alert("You Win !!!");
+            }
+            else{
+                winningCells = [];
+            }
+
             sendMove(move);
         }
         else{

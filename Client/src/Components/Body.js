@@ -45,6 +45,7 @@ export default function Body(props) {
     }, [socket])
 
     const createRoom = () => {
+        props.setMatchOver(false);
         let room = createRoomId;
         
         props.setRoom(room);
@@ -68,6 +69,7 @@ export default function Body(props) {
     }
 
     const joinRoom = () => {
+        props.setMatchOver(false);
         let room = joinRoomId;
         let userName = props.getMyUserName();
         socket.emit("join-room", {room, userName}, (acknowledgement) => {
