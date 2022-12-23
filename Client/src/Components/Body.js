@@ -97,6 +97,16 @@ export default function Body(props) {
         navigator.clipboard.writeText(text.value)
     }
 
+    // window.addEventListener('beforeunload', function (event) {
+    //     // Cancel the event
+    //     event.preventDefault();
+    //     // Chrome requires returnValue to be set
+    //     event.returnValue = '';
+      
+    //     // Show the popup
+    //     alert('Are you sure you want to leave this page?');
+    //   });
+
     return (
 
         <>

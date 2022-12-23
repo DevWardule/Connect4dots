@@ -14,12 +14,14 @@ import{ Link, Navigate } from "react-router-dom";
       const [name,setusername] = useState("");
       const [email,setemail] = useState("");
       const [password,setpassword] = useState("");
+      const [firstname,setfirstname] = useState("");
+      const [lastname,setlastname]  = useState("");
 
         const collectData = async () =>{
             console.warn(name,email,password);
             const result = await fetch('http://localhost:3000/api/adduser',{
                 method:'post',
-                body: JSON.stringify({name,email,password}),
+                body: JSON.stringify({name,email,password,firstname,lastname}),
                 headers:{
                     'Content-Type': 'application/json'
                 }
@@ -28,7 +30,7 @@ import{ Link, Navigate } from "react-router-dom";
             //this keeps data in localstorage even we close the tab
             localStorage.setItem("user",JSON.stringify(finalresult.user));
             localStorage.setItem("token",JSON.stringify(finalresult.auth));
-
+            window.location.reload(true);
             console.warn(finalresult);
         }
 
@@ -51,6 +53,7 @@ import{ Link, Navigate } from "react-router-dom";
 
            }
            console.warn(finalresult);
+           window.location.reload(true);
         }
 
         const namestring = localStorage.getItem("user");
@@ -63,6 +66,7 @@ import{ Link, Navigate } from "react-router-dom";
 
         const logout = () =>{
             localStorage.clear();
+            window.location.reload(true);
             Navigate('/');
         }
 
@@ -128,7 +132,7 @@ import{ Link, Navigate } from "react-router-dom";
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAccModal">Create new Account</button>    
-                            <Link to="/aboutUs"><button type="button" onClick={Login} className="btn btn-primary" data-bs-dismiss="modal">Login</button></Link>
+                            <Link to="/aboutUs"><button type="button" onClick={Login} className="btn btn-primary" data-bs-dismiss="modal" >Login</button></Link>
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 
                             {/* <!-- <button type="button" className="btn btn-primary">Save changes</button> --> */}
@@ -154,9 +158,9 @@ import{ Link, Navigate } from "react-router-dom";
 
                     <div className="input-group my-3">
                         <span className="input-group-text">First and last name</span>
-                        <input type="text" aria-label="First name" className="form-control"/>
+                        <input type="text" value={firstname} onChange = {(e) => setfirstname(e.target.value)} aria-label="First name" className="form-control"/>
                         {/* <!-- <input type="text" aria-label="middle name" className="form-control"> --> */}
-                        <input type="text" aria-label="Last name" className="form-control"/>
+                        <input type="text" value={lastname} onChange = {(e) => setlastname(e.target.value)} aria-label="Last name" className="form-control"/>
                     </div>
 
                     <div className="mb-3">
