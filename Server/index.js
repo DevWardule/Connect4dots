@@ -4,11 +4,19 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
+
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 const userToRoomMap = new Map();
 
 const server = http.createServer(app);
+
+const router = require('../Backend/routes/userRoutes.js');
+
+app.use('/api',router);
+
 
 const io = new Server(server, {
     cors: {
@@ -16,6 +24,9 @@ const io = new Server(server, {
         methods: ["GET", "POST"],
     },
 })
+
+
+// hello
 
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
