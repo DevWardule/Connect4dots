@@ -1,8 +1,8 @@
 module.exports = {
     HOST : "localhost",
     USER : "root",
-    PASSWORD : "dev123",
-    DB : "college",
+    PASSWORD : "12456789",
+    DB : "Connect4",
     dialect : "mysql",
     pool:{
         max:5,  //maximum devices
