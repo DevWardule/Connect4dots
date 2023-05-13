@@ -95,17 +95,31 @@ function App() {
   //   setCellCheck(data);
   // }
 
-  let uniqueUserId = prompt("Enter your Unique user Id", "Jamshed");
+  
+  
+  
+  
+  
+  let uniqueUserId = "Jamshed";
+  // let uniqueUserId = prompt("Enter your Unique user Id", "Jamshed");
 
-  socket.emit("check-for-ongoing-match", {uniqueUserId}, (acknowledgement) => {
-    let ack = acknowledgement.status;
-    if(ack === "Has ongoing Match"){
-      alert(acknowledgement.room);
-    }
-    else if(ack === "No ongoing Match"){
-      alert(ack);
-    }
-  });
+  // socket.emit("check-for-ongoing-match", {uniqueUserId}, (acknowledgement) => {
+  //   let ack = acknowledgement.status;
+  //   if(ack === "Has ongoing Match"){
+  //     alert(acknowledgement.room);
+  //   }
+  //   else if(ack === "No ongoing Match"){
+  //     alert(ack);
+  //   }
+  // });
+
+
+
+
+
+
+
+
 
   return (
     <div>

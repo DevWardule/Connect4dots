@@ -1,6 +1,6 @@
 // import { compare } from 'bcrypt';
 
-import React, { Component,useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import{ Link, Navigate, useAsyncError } from "react-router-dom";
 // import { Json } from 'sequelize/types/utils';
@@ -11,11 +11,13 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
 
 
   export default function Navbar(){
-      const [name,setusername] = useState("");
+      const [name,setname] = useState("");
       const [email,setemail] = useState("");
       const [password,setpassword] = useState("");
       const [firstname,setfirstname] = useState("");
       const [lastname,setlastname] = useState("");
+      
+      const [userName,setUserName] = useState("");
 
         const collectData = async () =>{
             console.warn(name,email,password);
@@ -52,20 +54,26 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
                 localStorage.setItem("token",JSON.stringify(finalresult.auth));
 
            }
+           setUserName(finalresult.user.name);
            console.warn(finalresult);
         }
 
         const namestring = localStorage.getItem("user");
-        let username = undefined;
-        if(namestring)
-        {
-            const nameobj = JSON.parse(namestring);
-            username = nameobj.name;
-        }
+        
+        useEffect(() => {
+            if(namestring)
+            {
+                const nameobj = JSON.parse(namestring);
+                setUserName(nameobj.name);
+            }
+            
+        }, [])
+        
 
         const logout = () =>{
             localStorage.clear();
-            Navigate('/');
+            setUserName();
+            //Navigate('/');
         }
 
 
@@ -77,7 +85,7 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
                 <div className="container-fluid">
 
                 {
-                    username ?<Link className="navbar-brand" to="/nameColor">{username}</Link>:
+                    userName ?<Link className="navbar-brand" to="/nameColor">{userName}</Link>:
                     <Link className="navbar-brand" to="/nameColor">Player Name</Link>
                 }                    
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +104,7 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
                             </li>
                         </ul>
                         {
-                            username?<button type="button" className="btn btn-outline-danger login"  onClick={logout} >Logout</button>:
+                            userName?<button type="button" className="btn btn-outline-danger login"  onClick={logout} >Logout</button>:
                             <button type="button" className="btn btn-outline-danger login" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
                         }
                         <button type="button" className="btn btn-outline-danger">Audio</button>
@@ -164,7 +172,7 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
                     <div className="mb-3">
                         <label htmlFor="userName" className="form-label">User Name</label>
                         <input type="text" value={name} 
-                        onChange = {(e) => setusername(e.target.value)} className="form-control" id="userName"/>
+                        onChange = {(e) => setname(e.target.value)} className="form-control" id="userName"/>
                     </div>
 
                     <div className="mb-3">
