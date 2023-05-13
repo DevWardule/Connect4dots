@@ -110,6 +110,9 @@ export default function Game_Play(props) {
                 else{
                     break;
                 }
+                if(i%7 == 0){
+                    break;
+                }
             }
 
             for(let i = cellNum - 1; 1 <= i && i <= 42 && winningCells.length != 4; i -= 1){
@@ -117,6 +120,9 @@ export default function Game_Play(props) {
                     winningCells.push(i);
                 }
                 else{
+                    break;
+                }
+                if(i%7 == 1){
                     break;
                 }
             }
@@ -133,6 +139,9 @@ export default function Game_Play(props) {
                 else{
                     break;
                 }
+                if(i%7 == 1){
+                    break;
+                }
             }
 
             for(let i = cellNum - 6; 1 <= i && i <= 42 && winningCells.length != 4; i -= 6){
@@ -140,6 +149,9 @@ export default function Game_Play(props) {
                     winningCells.push(i);
                 }
                 else{
+                    break;
+                }
+                if(i%7 == 0){
                     break;
                 }
             }
@@ -156,6 +168,9 @@ export default function Game_Play(props) {
                 else{
                     break;
                 }
+                if(i%7 == 0){
+                    break;
+                }
             }
 
             for(let i = cellNum - 8; 1 <= i && i <= 42 && winningCells.length != 4; i -= 8){
@@ -163,6 +178,9 @@ export default function Game_Play(props) {
                     winningCells.push(i);
                 }
                 else{
+                    break;
+                }
+                if(i%7 == 1){
                     break;
                 }
             }
