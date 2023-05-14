@@ -32,30 +32,33 @@ export default function Game_Play(props) {
         }
     })
 
-
     useEffect(() => {
         socket.on("receive-move", (data) => {
-            let move = data.move;//Latest move to store on database or to go to previous moves.
-            newCellCheck = [...data.newCellCheck];
+            let cellNum = data.cellNum;//Latest move to store on database or to go to previous moves.
+
+            let pNo = props.getPlayer1or2();// My player Number (1 or 2)
+            let oNo = (pNo == 1) ? 2 : 1;// Opponents player Number (1 or 2)
+            newCellCheck[cellNum] = oNo;
+            setCellCheck(newCellCheck);
+            
             winningCells = data.winningCells;
             if(winningCells.length == 4){
                 alert("You Lose");
                 props.setMatchOver(true);
             }
-            setCellCheck(newCellCheck);
 
             props.setMyTurn(true);
         })
-    }, [socket])
+    }, [socket, cellCheck])
     
-    const sendMove = (move) => {
-        socket.emit("send-move", {move, newCellCheck, winningCells, room}, (acknowledgement) => {
+    const sendMove = (cellNum) => {
+        socket.emit("send-move", {cellNum, winningCells, room}, (acknowledgement) => {
             props.setMyTurn(false);
             //alert(acknowledgement.status);
         });
     };
 
-    const handleClick = (move) => {
+    const handleClick = (column) => {
 
         if(props.getMatchOver() == true){
             return;
@@ -65,25 +68,23 @@ export default function Game_Play(props) {
             return;
         }
 
-        move %= 7;
-        if(move == 0){
-            move = 7;
+        column %= 7;
+        if(column == 0){
+            column = 7;
         }
         
-        let cellNum = move - 7;
+        let cellNum = column - 7;
 
         for(; cellNum + 7 <= 42; cellNum += 7){
-            if(cellCheck[cellNum + 7] != 0){
+            if(newCellCheck[cellNum + 7] != 0){
                 break;
             }
         }
 
         if(cellNum > 0){
-            newCellCheck = [...cellCheck];
             let pNo = props.getPlayer1or2();
             newCellCheck[cellNum] = pNo;
             setCellCheck(newCellCheck);
-            console.log(newCellCheck);
 
             winningCells = [];
 
@@ -193,16 +194,12 @@ export default function Game_Play(props) {
                 winningCells = [];
             }
 
-            sendMove(move);
+            sendMove(cellNum);
         }
         else{
             alert("Can't play there\nColumn is full");
         }
     }
-
-    // console.log(cellCheck);    
-
-
 
   return (
 

@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
 
     socket.on("send-move", (data, acknowledgement) => {
         //data contains:
-        //1. int move (latest move)
+        //1. int cellNum (latest cell colored)
         //2. newCellCheck (latest cellCheck state)
         //3. winningCells (4 winning cells)
         //4. room (roomId)
