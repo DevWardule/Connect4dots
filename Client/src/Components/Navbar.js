@@ -52,9 +52,8 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
                 console.warn("find");
                 localStorage.setItem("user",JSON.stringify(finalresult.user));
                 localStorage.setItem("token",JSON.stringify(finalresult.auth));
-
+                setUserName(finalresult.user.name);
            }
-           setUserName(finalresult.user.name);
            console.warn(finalresult);
         }
 
