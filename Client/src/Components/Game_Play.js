@@ -23,6 +23,9 @@ export default function Game_Play(props) {
     const cellCheckSkin = [...cellCheck];
     let winningCells = [];
 
+    
+    console.log("rr");
+
     cellCheckSkin.forEach((value, index, arr) => {
         if(value === 1){
             cellCheckSkin[index] = p1Coin;
@@ -40,9 +43,11 @@ export default function Game_Play(props) {
             let oNo = (pNo == 1) ? 2 : 1;// Opponents player Number (1 or 2)
             newCellCheck[cellNum] = oNo;
             setCellCheck(newCellCheck);
+            console.log("r");
             
             winningCells = data.winningCells;
             if(winningCells.length == 4){
+                console.log("f");
                 alert("You Lose");
                 props.setMatchOver(true);
             }
@@ -54,6 +59,7 @@ export default function Game_Play(props) {
     const sendMove = (cellNum) => {
         socket.emit("send-move", {cellNum, winningCells, room}, (acknowledgement) => {
             props.setMyTurn(false);
+            console.log("s");
             //alert(acknowledgement.status);
         });
     };

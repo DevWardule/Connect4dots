@@ -20,7 +20,7 @@ app.use('/api',router);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000", 
+        origin: ["http://192.168.246.3:3000", "http://localhost:3000"], 
         methods: ["GET", "POST"],
     },
 })

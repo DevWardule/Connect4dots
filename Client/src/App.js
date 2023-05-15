@@ -18,7 +18,7 @@ import{
 import { useState } from 'react';
 
 import io from 'socket.io-client';
-const socket = io.connect("http://localhost:5000")
+const socket = io.connect(["http://192.168.246.3:5000", "http://localhost:5000"])
 
 var myTurn;
 var room;
