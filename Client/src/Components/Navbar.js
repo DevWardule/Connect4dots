@@ -21,7 +21,7 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
 
         const collectData = async () =>{
             console.warn(name,email,password);
-            const result = await fetch('http://localhost:3000/api/adduser',{
+            const result = await fetch('http://192.168.246.3:3000/api/adduser',{
                 method:'post',
                 body: JSON.stringify({name,email,password,firstname,lastname}),
                 headers:{
@@ -38,7 +38,7 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
 
         const Login = async ()=>{
            console.warn(email,password);
-           const user = await fetch('http://localhost:3000/api/finduser',{
+           const user = await fetch('http://192.168.246.3:3000/api/finduser',{
                 method : 'post',
                 body : JSON.stringify({email,password}),
                 headers:{
