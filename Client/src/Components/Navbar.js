@@ -18,6 +18,8 @@ import{ Link, Navigate, useAsyncError } from "react-router-dom";
       const [lastname,setlastname] = useState("");
       
       const [userName,setUserName] = useState("");
+      
+      const [temp,setTemp] = useState("");
 
         const collectData = async () =>{
             console.warn(name,email,password);
