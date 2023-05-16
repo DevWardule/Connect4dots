@@ -23,9 +23,6 @@ export default function Game_Play(props) {
     const cellCheckSkin = [...cellCheck];
     let winningCells = [];
 
-    
-    console.log("rr");
-
     cellCheckSkin.forEach((value, index, arr) => {
         if(value === 1){
             cellCheckSkin[index] = p1Coin;
@@ -36,30 +33,35 @@ export default function Game_Play(props) {
     })
 
     useEffect(() => {
-        socket.on("receive-move", (data) => {
+        const handleReceiveMove = (data) => {
             let cellNum = data.cellNum;//Latest move to store on database or to go to previous moves.
 
             let pNo = props.getPlayer1or2();// My player Number (1 or 2)
             let oNo = (pNo == 1) ? 2 : 1;// Opponents player Number (1 or 2)
             newCellCheck[cellNum] = oNo;
             setCellCheck(newCellCheck);
-            console.log("r");
             
             winningCells = data.winningCells;
             if(winningCells.length == 4){
-                console.log("f");
                 alert("You Lose");
                 props.setMatchOver(true);
             }
 
             props.setMyTurn(true);
-        })
+        };
+
+
+        socket.on("receive-move", handleReceiveMove);
+
+        return () => {
+            socket.off("receive-move", handleReceiveMove);
+        };
+
     }, [socket, cellCheck])
     
     const sendMove = (cellNum) => {
         socket.emit("send-move", {cellNum, winningCells, room}, (acknowledgement) => {
             props.setMyTurn(false);
-            console.log("s");
             //alert(acknowledgement.status);
         });
     };
