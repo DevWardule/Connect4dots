@@ -13,15 +13,15 @@ const Project = db.project
 //1.create entry
 
 const adduser = async (req,res)=>{
-    // console.log(req);
-    const pass = await bcrypt.hash(req.body.password,11);
+    console.log(req.body);
+    const pass = await bcrypt.hash(req.body.CreatePassword,11);
     // console.log(pass);
     let info = {
-        name : req.body.name,
-        email : req.body.email,
+        name : req.body.UserName,
+        email : req.body.CreateEmail,
         password : pass,
-        firstname : req.body.firstname,
-        lastname : req.body.lastname,
+        firstname : req.body.FirstName,
+        lastname : req.body.LastName,
     }
     console.log(info);
     const user = await Project.create(info);
@@ -35,8 +35,8 @@ const adduser = async (req,res)=>{
 //6 . Find user get method
 
 const findUser = async (req,res) => {
-    const ema = req.body.email;
-    const password1 = req.body.password;
+    const ema = req.body.LoginEmail;
+    const password1 = req.body.LoginPassword;
 
     let user = await Project.findOne({
         where:{email : ema}

@@ -17,10 +17,14 @@ const router = require('../Backend/routes/userRoutes.js');
 
 app.use('/api',router);
 
+const serverAddressFile = require('../Client/src/Config/ServerConfig');
+
+const serverAddress = serverAddressFile.serverAddress
+
 
 const io = new Server(server, {
     cors: {
-        origin: ["http://192.168.246.3:3000", "http://localhost:3000"], 
+        origin: serverAddress + ":3000", 
         methods: ["GET", "POST"],
     },
 })

@@ -647,7 +647,7 @@
   
   .play_SquareGrid {
     /* // The content width you use on your website */
-    --content-width: 42vw;
+    --content-width: 658px;
   
     /* // The size of the gutter   */
     --gutter: 10px;
@@ -656,7 +656,8 @@
     --columns: 7;
     
     /* // This is the calculation for the row height.    */
-    --row-size: calc((var(--content-width) - (var(--gutter)*(var(--columns)-1)) )/ var(--columns));
+    /* --row-size: calc((var(--content-width) - (var(--gutter)*(var(--columns)-1)) )/ var(--columns)); */
+    --row-size: calc(var(--content-width)/var(--columns));
   
     display: grid;
   

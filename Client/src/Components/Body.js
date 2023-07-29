@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import{
     Link
   } from "react-router-dom";
@@ -8,6 +8,8 @@ import { useEffect} from 'react';
 // const socket = io.connect("http://localhost:5000")
 
 export default function Body(props) {
+
+    const [Loading,SetLoading] = useState(0);
 
     const socket = props.socket;
     const uniqueUserId = props.uniqueUserId;
@@ -66,6 +68,7 @@ export default function Body(props) {
             if(ack === "Room already created"){
                 alert(ack);
             }
+            //in else redirect to loading
         });
     }
 
@@ -258,15 +261,60 @@ export default function Body(props) {
 
             <div className="grid">
                 <div className="SquareGrid">
-                    <Link className="item" to="/easy"><div>1</div></Link>
-                    <Link className="item" to="/easy"><div>2</div></Link>
-                    <Link className="item" to="/easy"><div>3</div></Link>
-                    <Link className="item" to="/easy"><div>4</div></Link>
-                    <Link className="item" to="/easy"><div>5</div></Link>
-                    <Link className="item" to="/easy"><div>6</div></Link>
-                    <Link className="item" to="/easy"><div>7</div></Link>
-                    <Link className="item" to="/easy"><div>8</div></Link>
-                    <Link className="item" to="/easy"><div>9</div></Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>1+0</p>
+                            <p className='PlayOnlineMode'>Bullet</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>2+1</p>
+                            <p className='PlayOnlineMode'>Bullet</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>5+0</p>
+                            <p className='PlayOnlineMode'>Blitz</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>5+3</p>
+                            <p className='PlayOnlineMode'>Blitz</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>10+0</p>
+                            <p className='PlayOnlineMode'>Rapid</p>
+                        </div>
+                    </Link> 
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>10+5</p>
+                            <p className='PlayOnlineMode'>Rapid</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>15+10</p>
+                            <p className='PlayOnlineMode'>Rapid</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>30+0</p>
+                            <p className='PlayOnlineMode'>Classic</p>
+                        </div>
+                    </Link>
+                    <Link className="item" to="/easy">
+                        <div>
+                            <p className='PlayOnlineMode'>30+10</p>
+                            <p className='PlayOnlineMode'>Classic</p>
+                        </div>
+                    </Link>
                 </div>
             </div>
 

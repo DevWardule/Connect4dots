@@ -9,6 +9,7 @@ import Moderate from './Components/Moderate';
 import Hard from './Components/Hard';
 import Rules_Regulations from './Components/Rules_Regulations';
 import Game_Play from './Components/Game_Play';
+import {serverAddress} from './Config/ServerConfig';
 
 import{
   BrowserRouter as Router,
@@ -18,7 +19,7 @@ import{
 import { useState } from 'react';
 
 import io from 'socket.io-client';
-const socket = io.connect(["http://192.168.246.3:5000", "http://localhost:5000"])
+const socket = io.connect(serverAddress + ":5000")
 
 var myTurn;
 var room;
